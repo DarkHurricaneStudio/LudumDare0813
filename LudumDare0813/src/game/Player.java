@@ -18,7 +18,7 @@ public class Player extends LivingEntity {
 	// statics fields
 	public static double GRAVITY = 5.0;
 	public static double JUMPFORCE = 40.0;
-	public static double RUNSPEED = 8.0;
+	public static double RUNSPEED = 15.0;
 	
 	
 	
@@ -28,7 +28,7 @@ public class Player extends LivingEntity {
 	
 	public Player(Updater u) {
 		
-		super(50,0,null,null);
+		super(100,100,null,null);
 		this.updater = u;
 		
 
@@ -93,7 +93,7 @@ public class Player extends LivingEntity {
 			this.speedX = Player.RUNSPEED;
 			this.direction = true;
 		} else {
-			this.speedX = 0;
+			this.speedX /= 2.0;
 		}
 			
 		//State update
@@ -118,8 +118,8 @@ public class Player extends LivingEntity {
 		this.posX += this.speedX;
 		
 		// test
-		if (this.posY >= MainPanel.GAME_HEIGHT) {
-			this.speedX = 0;
+		if (this.posY+this.height >= MainPanel.GAME_HEIGHT) {
+			this.speedY = 0;
 			this.posY = MainPanel.GAME_HEIGHT - this.height;
 			this.state = Player.STATE_STANDING;
 		}

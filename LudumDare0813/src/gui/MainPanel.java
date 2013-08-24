@@ -14,12 +14,12 @@ public class MainPanel extends JPanel {
 		/**
 		 * Width (in pixels) of the game
 		 */
-		public final static int GAME_WIDTH = 720;
+		public final static int GAME_WIDTH = 780;
 	
 		/**
 		 * Height (in pixels) of the game
 		 */
-		public final static int GAME_HEIGHT = 405;
+		public final static int GAME_HEIGHT = 550;
 	
 		/**
 		 * 
