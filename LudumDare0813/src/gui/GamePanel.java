@@ -10,6 +10,9 @@ public class GamePanel extends CardPanel {
 	//Constructors
 		public GamePanel(MainPanel mainPanel) {
 			super(GamePanel.ID,mainPanel);
+			
+			this.addKeyListener(Main.inputHandler);
+			this.requestFocus();
 		}
 			
 	//Methods

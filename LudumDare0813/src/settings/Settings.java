@@ -7,8 +7,8 @@ public class Settings {
 	
 	//Methods
 		public static void init(){
-			Settings.jumpKeyCode = 0;
-			Settings.leftKeyCode = 0;
-			Settings.rightKeyCode = 0;
+			Settings.jumpKeyCode = 32;
+			Settings.leftKeyCode = 37;
+			Settings.rightKeyCode = 39;
 		}
 }
