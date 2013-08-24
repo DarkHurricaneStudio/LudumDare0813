@@ -3,6 +3,7 @@ package game;
 import settings.Settings;
 import graphics.AnimatedSprite;
 import gui.InputHandler;
+import gui.MainPanel;
 
 public class Player extends LivingEntity {
 
@@ -15,9 +16,9 @@ public class Player extends LivingEntity {
 	protected final static int STATE_FALLING=3;
 	
 	// statics fields
-	public static double GRAVITY = 0.1;
-	public static double JUMPFORCE = 50.0;
-	public static double RUNSPEED = 5.0;
+	public static double GRAVITY = 5.0;
+	public static double JUMPFORCE = 40.0;
+	public static double RUNSPEED = 8.0;
 	
 	
 	
@@ -27,7 +28,7 @@ public class Player extends LivingEntity {
 	
 	public Player(Updater u) {
 		
-		super(0,0,null,null);
+		super(50,0,null,null);
 		this.updater = u;
 		
 
@@ -103,11 +104,11 @@ public class Player extends LivingEntity {
 		}
 		
 		// running state
-		if (this.speedX != 0 && this.speedY == 0 && this.state != Player.STATE_RUNNING) {
+		if (this.speedX != 0 && this.speedY == 0 && this.state == Player.STATE_STANDING) {
 			this.state = Player.STATE_RUNNING;
 		}
 		
-		if (this.speedX == 0 && this.speedY == 0 && this.state != Player.STATE_STANDING) {
+		if (this.speedX == 0 && this.speedY == 0 && (this.state != Player.STATE_STANDING && this.state != Player.STATE_JUMPING)) {
 			this.state = Player.STATE_STANDING;
 		}
 		
@@ -116,7 +117,12 @@ public class Player extends LivingEntity {
 		this.posY += this.speedY;
 		this.posX += this.speedX;
 		
-		
+		// test
+		if (this.posY >= MainPanel.GAME_HEIGHT) {
+			this.speedX = 0;
+			this.posY = MainPanel.GAME_HEIGHT - this.height;
+			this.state = Player.STATE_STANDING;
+		}
 		//Sprite display
 		
 	}
