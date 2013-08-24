@@ -1,25 +1,28 @@
 package levels;
 
+import game.Monster;
 import game.Updater;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Level {
 	
 	private BufferedImage cache;
 	private BufferedImage background;
 	private BufferedImage foreground;
-	private byte[] other;
+	private byte[] other; // other stuff to be load ? like a text file, or another image
+	private Monster[] mobs;
+	
 	
 	private Updater updater;
 	
 	public Level(Updater u, String path) {
 		this.updater = u;
 		ZipReader.read(path, this);
+		
+		// test
+		this.mobs = new Monster[1];
+		this.mobs[0] = new Monster(u,600,100,null,null);
 	}
 	
 	public void setBackground(BufferedImage background) {
@@ -48,5 +51,9 @@ public class Level {
 	
 	public BufferedImage getCache() {
 		return this.cache;
+	}
+	
+	public Monster[] getMobs() {
+		return this.mobs;
 	}
 }

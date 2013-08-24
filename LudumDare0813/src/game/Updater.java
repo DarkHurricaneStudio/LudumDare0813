@@ -37,7 +37,16 @@ public class Updater {
 	
 	// methods
 	public void update() {
+		// update of the player. No, why so serious ?
 		this.player.update(this);
+		
+		// update of the monsters
+		// But, with a lot of monster, there will be too much operations ? oO
+		// So, let's check only for nearest only
+		for (int i=0; i<this.level.getMobs().length;i++) {
+			if (this.player.distanceTo(this.level.getMobs()[i]) < MainPanel.GAME_WIDTH)
+				this.level.getMobs()[i].update(this);
+		}
 		
 		// we update position if the player is too far from the center
 		if (this.player.getPosX()+this.posX <= MainPanel.GAME_WIDTH/3)
@@ -46,10 +55,10 @@ public class Updater {
 			this.posX -= Player.RUNSPEED;
 		
 		// idem with the Y-axis
-		if (this.player.getPosY()+this.posY <= MainPanel.GAME_HEIGHT/4)
-			this.posY += this.player.getSpeedY();
-		else if (this.player.getPosY()+this.player.getHeight()+this.posY >= MainPanel.GAME_HEIGHT*3/4.0)
-			this.posY -= this.player.getSpeedY();
+		if (this.player.getPosY()+this.posY <= MainPanel.GAME_HEIGHT/3)
+			this.posY += Player.GRAVITY;
+		else if (this.player.getPosY()+this.player.getHeight()+this.posY >= MainPanel.GAME_HEIGHT*2/3.0)
+			this.posY -= Player.GRAVITY;
 	}
 	
 	public BufferedImage render() {
@@ -64,7 +73,10 @@ public class Updater {
 		// image background
 		g.drawImage(this.level.getBackground(),(int)this.posX,(int)this.posY,null);
 		
-		
+		g.setColor(Color.yellow);
+		for (int i=0; i<this.level.getMobs().length;i++) {
+			g.fillRect((int)(this.level.getMobs()[i].getPosX()+this.posX),(int)(this.level.getMobs()[i].getPosY()+this.posY),this.level.getMobs()[i].getWidth(),this.level.getMobs()[i].getHeight());
+		}
 		
 		g.setColor(Color.red);
 		g.fillRect((int)(this.player.getPosX()+this.posX),(int)(this.player.getPosY()+this.posY),this.player.getWidth(),this.player.getHeight());
