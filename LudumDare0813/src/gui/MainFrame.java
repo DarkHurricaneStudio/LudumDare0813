@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
 	//Constructors
 		public MainFrame(){
 			this.mainPanel = new MainPanel();
-			
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setContentPane(this.mainPanel);
 			
 			this.pack();
