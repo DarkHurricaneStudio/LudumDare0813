@@ -1,5 +1,7 @@
 package gui;
 
+import game.Updater;
+
 import java.awt.Graphics;
 
 public class GamePanel extends CardPanel {
@@ -7,10 +9,12 @@ public class GamePanel extends CardPanel {
 	//Fields
 		public final static String ID = "GAME_PANEL";
 		
+		private Updater updater;
+		
 	//Constructors
-		public GamePanel(MainPanel mainPanel) {
+		public GamePanel(MainPanel mainPanel, Updater u) {
 			super(GamePanel.ID,mainPanel);
-			
+			this.updater = u;
 			this.addKeyListener(Main.inputHandler);
 			this.requestFocus();
 		}
@@ -19,7 +23,8 @@ public class GamePanel extends CardPanel {
 		public void paintComponent(Graphics g){
 			long initTime = System.nanoTime();		
 			
-			g.fillRect(0, 0, 200, 300);
+			this.updater.update();
+			g.drawImage(this.updater.render(),0,0,null);
 			
 			while (System.nanoTime() - initTime < 1000000000 / 60) {			}
 			this.repaint();

@@ -1,5 +1,7 @@
 package gui;
 
+import game.Updater;
+
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class MainPanel extends JPanel {
 		/**
 		 * Build the main panel
 		 */
-		public MainPanel() {
+		public MainPanel(Updater u) {
 			super();
 	
 			this.setPreferredSize(new Dimension(MainPanel.GAME_WIDTH,
@@ -43,7 +45,7 @@ public class MainPanel extends JPanel {
 			this.setLayout(this.layout);
 	
 			this.panels = new ArrayList<CardPanel>();
-			this.panels.add(new GamePanel(this));
+			this.panels.add(new GamePanel(this,u));
 	
 			for (int i = 0; i < this.panels.size(); i++) {
 				this.panels.get(i);

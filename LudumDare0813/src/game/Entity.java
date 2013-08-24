@@ -6,6 +6,7 @@ public abstract class Entity {
 	//Fields
 		protected double posX,posY,speedX;
 		protected double speedY;
+		protected int height, width;
 		
 
 	//Constructor
@@ -20,4 +21,20 @@ public abstract class Entity {
 	//Methods
 		
 		public abstract void update(Updater u);
+		
+		public double getPosX() {
+			return this.posX;
+		}
+		
+		public double getPosY() {
+			return this.posY;
+		}
+		
+		public int getWidth() {
+			return this.width;
+		}
+		
+		public int getHeight() {
+			return this.height;
+		}
 }

@@ -15,7 +15,7 @@ public class Player extends LivingEntity {
 	protected final static int STATE_FALLING=3;
 	
 	// statics fields
-	public static double GRAVITY = 5.0;
+	public static double GRAVITY = 0.1;
 	public static double JUMPFORCE = 50.0;
 	public static double RUNSPEED = 5.0;
 	
@@ -44,6 +44,10 @@ public class Player extends LivingEntity {
 		this.leftKey = false;
 		this.rightKey = false;
 		this.jumpKey = false;
+		
+		// we define the width and the height
+		this.width = 64;
+		this.height = 64;
 		
 	}
 	
