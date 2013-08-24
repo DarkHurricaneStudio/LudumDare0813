@@ -18,5 +18,5 @@ public abstract class Entity {
 		
 	//Methods
 		
-		public abstract void update();
+		public abstract void update(Updater u);
 }

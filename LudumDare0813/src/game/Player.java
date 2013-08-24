@@ -42,7 +42,7 @@ public class Player extends LivingEntity {
 		}
 	}
 	
-	public void update(){
+	public void update(Updater u){
 		//Key check
 			if (InputHandler.input[Settings.jumpKeyCode])
 				this.jumpKey = true;
