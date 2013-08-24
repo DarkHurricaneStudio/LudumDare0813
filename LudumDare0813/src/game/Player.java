@@ -60,10 +60,12 @@ public class Player extends LivingEntity {
 	
 	public void update(Updater u){
 		//Key check
-			if (InputHandler.input[Settings.jumpKeyCode])
+			if (InputHandler.input[Settings.jumpKeyCode]){
 				this.jumpKey = true;
-			else 
+			}
+			else {	
 				this.jumpKey = false;
+			}
 			
 			if (InputHandler.input[Settings.leftKeyCode])
 				this.leftKey = true;
