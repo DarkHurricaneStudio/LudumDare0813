@@ -6,6 +6,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import levels.Level;
+import levels.ZipReader;
+
 public class Updater {
 	
 	// fields
@@ -17,6 +20,8 @@ public class Updater {
 	private double posX; // position for the scrolling
 	private double posY; // position for scrolling
 	
+	private Level level;
+	
 	
 	
 	
@@ -25,6 +30,7 @@ public class Updater {
 		this.player = new Player(this);
 		this.posX = 0;
 		this.posY = 0;
+		this.level = new Level(this,"C:/level.zip");
 	}
 	
 	
@@ -35,9 +41,9 @@ public class Updater {
 		
 		// we update position if the player is too far from the center
 		if (this.player.getPosX()-this.posX <= MainPanel.GAME_WIDTH/3)
-			this.posX -= Player.RUNSPEED;
-		else if (this.player.getPosX()-this.posX >= MainPanel.GAME_WIDTH*2/3.0)
 			this.posX += Player.RUNSPEED;
+		else if (this.player.getPosX()-this.posX >= MainPanel.GAME_WIDTH*2/3.0)
+			this.posX -= Player.RUNSPEED;
 		
 		// idem with the Y-axis
 		if (this.player.getPosY()-this.posY <= 1/8)
@@ -49,11 +55,17 @@ public class Updater {
 		BufferedImage res = new BufferedImage(MainPanel.GAME_WIDTH,MainPanel.GAME_HEIGHT,BufferedImage.TYPE_INT_ARGB);
 		Graphics g = res.getGraphics();
 		
-		g.setColor(Color.yellow);
+		// black background for in case of
+		g.setColor(Color.black);
 		g.fillRect(0, 0, MainPanel.GAME_WIDTH, MainPanel.GAME_HEIGHT);
 		
+		// image background
+		g.drawImage(this.level.getBackground(),(int)this.posX,(int)this.posY,null);
+		
+		
+		
 		g.setColor(Color.red);
-		g.fillRect((int)(this.player.getPosX()-this.posX),(int)(this.player.getPosY()-this.posY),this.player.getWidth(),this.player.getHeight());
+		g.fillRect((int)(this.player.getPosX()+this.posX),(int)(this.player.getPosY()+this.posY),this.player.getWidth(),this.player.getHeight());
 		
 		return res;
 	}

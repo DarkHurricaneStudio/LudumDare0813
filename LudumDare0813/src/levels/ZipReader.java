@@ -1,55 +1,56 @@
 package levels;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+
+import javax.imageio.ImageIO;
 
 public class ZipReader {
 
 	static final int BUFFER = 2048;
 
-	public static void read(String path) {
+	public static void read(String path, Level lvl) {
+		
 		try {
-			byte data[] = new byte[BUFFER];
-			// destination file
-			BufferedOutputStream dest = null;
-			// open zip archive
-			FileInputStream file;
-
-			file = new FileInputStream(path);
-
-			BufferedInputStream buffi = new BufferedInputStream(file);
-
-			ZipInputStream zis = new ZipInputStream(buffi);
-
-			ZipEntry entry;
-			while ((entry = zis.getNextEntry()) != null) {
-				FileOutputStream fos = new FileOutputStream(entry.getName());
-				dest = new BufferedOutputStream(fos, ZipReader.BUFFER);
-
-				int count;
-				while ((count = zis.read(data, 0, BUFFER)) != -1) {
-					dest.write(data, 0, count);
-				}
-				
-				System.out.println(dest);
-			}
-			
-			
-			zis.close();
-			/*
-			buffi.close();
-			dest.close();
-			file.close();
-			*/
-
+			//loading background.png
+			byte[] data = ZipReader.load(path,"background.png");
+            lvl.setBackground(ImageIO.read(new ByteArrayInputStream(data)));
+            
+            //loading foreground.png
+            data = ZipReader.load(path,"forekground.png");
+            lvl.setForeground(ImageIO.read(new ByteArrayInputStream(data)));
+            
+            //loading cache.png
+            data = ZipReader.load(path,"cache.png");
+            lvl.setForeground(ImageIO.read(new ByteArrayInputStream(data)));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("fIle not found : ");
 		}
+		
+	}
 
+	public static byte[] load(String path, String filename) throws IOException {
+			ByteArrayOutputStream out = new ByteArrayOutputStream();  
+			ZipFile zf = new ZipFile(path);  
+			ZipEntry entry = zf.getEntry(filename);
+        	InputStream in = zf.getInputStream(entry);  
+        	byte[] buffer = new byte[BUFFER];  
+        	for(int n; (n = in.read(buffer)) != -1; )  
+        		out.write(buffer, 0, n);  
+        	in.close();  
+        	zf.close();  
+        	out.close();  
+        	byte[] bytes = out.toByteArray();
+        	return bytes;
 	}
 }
