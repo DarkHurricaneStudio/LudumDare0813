@@ -41,9 +41,9 @@ public class Updater {
 		
 		// we update position if the player is too far from the center
 		if (this.player.getPosX()-this.posX <= MainPanel.GAME_WIDTH/3)
-			this.posX += Player.RUNSPEED;
-		else if (this.player.getPosX()-this.posX >= MainPanel.GAME_WIDTH*2/3.0)
 			this.posX -= Player.RUNSPEED;
+		else if (this.player.getPosX()-this.posX >= MainPanel.GAME_WIDTH*2/3.0)
+			this.posX += Player.RUNSPEED;
 		
 		// idem with the Y-axis
 		if (this.player.getPosY()-this.posY <= 1/8)
@@ -60,7 +60,7 @@ public class Updater {
 		g.fillRect(0, 0, MainPanel.GAME_WIDTH, MainPanel.GAME_HEIGHT);
 		
 		// image background
-		g.drawImage(this.level.getBackground(),(int)this.posX,(int)this.posY,null);
+		g.drawImage(this.level.getCache(),(int)this.posX,(int)this.posY,null);
 		
 		
 		
@@ -68,6 +68,10 @@ public class Updater {
 		g.fillRect((int)(this.player.getPosX()+this.posX),(int)(this.player.getPosY()+this.posY),this.player.getWidth(),this.player.getHeight());
 		
 		return res;
+	}
+	
+	public Level getLevel() {
+		return this.level;
 	}
 
 }

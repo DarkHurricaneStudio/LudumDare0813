@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Color;
+
 import settings.Settings;
 import graphics.AnimatedSprite;
 import gui.InputHandler;
@@ -28,7 +30,7 @@ public class Player extends LivingEntity {
 	
 	public Player(Updater u) {
 		
-		super(100,100,null,null);
+		super(400,100,null,null);
 		this.updater = u;
 		
 
@@ -123,8 +125,30 @@ public class Player extends LivingEntity {
 			this.posY = MainPanel.GAME_HEIGHT - this.height;
 			this.state = Player.STATE_STANDING;
 		}
+		if (levelCollision()) {
+			this.posY -= 0;
+			this.speedY = 0;
+			this.state = Player.STATE_STANDING;
+		}
 		//Sprite display
 		
+	}
+
+	private boolean levelCollision() {
+		// we test if the player has a collision with the level
+		// to know this, we will load the cache and check at the player position
+		// But we can't check every pixel at every frame, we have to have high performance test
+		// in this case, we will only check all edges pixels
+		
+		// top line
+		for (int i = (int) this.posX; i<(int)(this.posX+this.width);i++) {
+			int color = this.updater.getLevel().getCache().getRGB(i,(int) this.posY);
+			// is it red = a wall ?
+			if (color == Color.red.getRGB())
+				return true;
+		}
+		
+		return false;
 	}
 	
 }

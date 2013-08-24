@@ -1,17 +1,11 @@
 package levels;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
 
@@ -25,16 +19,22 @@ public class ZipReader {
 			//loading background.png
 			byte[] data = ZipReader.load(path,"background.png");
             lvl.setBackground(ImageIO.read(new ByteArrayInputStream(data)));
-            
-            //loading foreground.png
-            data = ZipReader.load(path,"forekground.png");
+			} catch (Exception e) {
+			System.out.println("file not found : background");
+		}
+		try {
+			//loading background.png
+			byte[] data = ZipReader.load(path,"foreground.png");
             lvl.setForeground(ImageIO.read(new ByteArrayInputStream(data)));
-            
-            //loading cache.png
-            data = ZipReader.load(path,"cache.png");
-            lvl.setForeground(ImageIO.read(new ByteArrayInputStream(data)));
-		} catch (Exception e) {
-			System.out.println("fIle not found : ");
+			} catch (Exception e) {
+			System.out.println("file not found : foreground");
+		}
+		try {
+			//loading background.png
+			byte[] data = ZipReader.load(path,"cache.png");
+            lvl.setCache(ImageIO.read(new ByteArrayInputStream(data)));
+			} catch (Exception e) {
+			System.out.println("file not found : cache");
 		}
 		
 	}
