@@ -86,11 +86,11 @@ public class Player extends LivingEntity {
 		if (this.leftKey) {
 			this.speedX = -Player.RUNSPEED;
 			this.direction = false;
-		}
-		
-		if (this.rightKey){
+		} else if (this.rightKey){
 			this.speedX = Player.RUNSPEED;
 			this.direction = true;
+		} else {
+			this.speedX = 0;
 		}
 			
 		//State update
@@ -114,7 +114,6 @@ public class Player extends LivingEntity {
 		this.posY += this.speedY;
 		this.posX += this.speedX;
 		
-		//Direction update
 		
 		//Sprite display
 		
