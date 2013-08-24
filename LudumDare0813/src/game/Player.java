@@ -119,14 +119,8 @@ public class Player extends LivingEntity {
 		this.posY += this.speedY;
 		this.posX += this.speedX;
 		
-		// test
-		if (this.posY+this.height >= MainPanel.GAME_HEIGHT) {
-			this.speedY = 0;
-			this.posY = MainPanel.GAME_HEIGHT - this.height;
-			this.state = Player.STATE_STANDING;
-		}
+		// we check the level collision
 		if (levelCollision()) {
-			this.posY -= 0;
 			this.speedY = 0;
 			this.state = Player.STATE_STANDING;
 		}
@@ -139,16 +133,34 @@ public class Player extends LivingEntity {
 		// to know this, we will load the cache and check at the player position
 		// But we can't check every pixel at every frame, we have to have high performance test
 		// in this case, we will only check all edges pixels
-		
-		// top line
-		for (int i = (int) this.posX; i<(int)(this.posX+this.width);i++) {
-			int color = this.updater.getLevel().getCache().getRGB(i,(int) this.posY);
-			// is it red = a wall ?
-			if (color == Color.red.getRGB())
-				return true;
+		boolean collision = false;
+
+		if (this.posX >= 0 && this.posX+this.width<= this.updater.getLevel().getCache().getWidth()
+			&& this.posY >= 0 && this.posY+this.height <= this.updater.getLevel().getCache().getHeight()) {
+			// top line
+			for (int i = (int) this.posX; i<(int)(this.posX+this.width);i++) {
+				int color = this.updater.getLevel().getCache().getRGB(i,(int) this.posY);
+				// is it red = a wall ?
+				if (color == (new Color(208,0,0).getRGB())) {
+					// we update the position !
+					// we touch by the top, so it's a roof
+					this.posX = i;
+					this.posY +=this.speedY;
+					collision = true;
+				}
+
+			}
+			// bottom line
+			for (int i = (int) this.posX; i<(int)(this.posX+this.width);i++) {
+				int color = this.updater.getLevel().getCache().getRGB(i,(int) this.posY+this.height);
+				// is it red = a wall ?
+				if (color == (new Color(208,0,0).getRGB())) {
+					this.posY -= 1;
+					collision = true;
+				}
+			}
 		}
-		
-		return false;
+		return collision;
 	}
-	
+
 }

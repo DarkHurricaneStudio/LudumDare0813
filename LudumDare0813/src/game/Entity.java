@@ -37,4 +37,8 @@ public abstract class Entity {
 		public int getHeight() {
 			return this.height;
 		}
+		
+		public double getSpeedY() {
+			return this.speedY;
+		}
 }
