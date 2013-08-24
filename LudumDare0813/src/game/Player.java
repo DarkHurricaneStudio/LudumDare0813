@@ -6,13 +6,20 @@ import gui.InputHandler;
 
 public class Player extends LivingEntity {
 
-	private int state,jumpForce;
+	private int state;
 	private boolean leftKey,rightKey,jumpKey;
 	
 	protected final static int STATE_STANDING=0;
 	protected final static int STATE_RUNNING=1;
 	protected final static int STATE_JUMPING=2;
 	protected final static int STATE_FALLING=3;
+	
+	// statics fields
+	public static double GRAVITY = 5.0;
+	public static double JUMPFORCE = 50.0;
+	public static double RUNSPEED = 5.0;
+	
+	
 	
 	private Updater updater;
 	
@@ -23,8 +30,7 @@ public class Player extends LivingEntity {
 		super(0,0,null,null);
 		this.updater = u;
 		
-		
-		this.jumpForce = jumpForce;
+
 		
 		// we define the AnimatedSprite
 		this.standingLeft = standingLeft;
@@ -41,9 +47,10 @@ public class Player extends LivingEntity {
 		
 	}
 	
-	public void Jump(){
+	public void jump(){
 		if (this.state == Player.STATE_RUNNING || this.state == Player.STATE_STANDING){
-			this.speedY = -this.jumpForce;
+			this.speedY = -Player.JUMPFORCE;
+			this.state = Player.STATE_JUMPING;
 		}
 	}
 	
@@ -63,10 +70,45 @@ public class Player extends LivingEntity {
 				this.rightKey = true;
 			else 
 				this.rightKey = false;
+		
+			
+		// we first update the  Y speed
+		this.speedY += Player.GRAVITY;
+		if (this.jumpKey) {
+				this.jump();
+		}	
+		
+		// now we do the X speed
+		if (this.leftKey) {
+			this.speedX = -Player.RUNSPEED;
+			this.direction = false;
+		}
+		
+		if (this.rightKey){
+			this.speedX = Player.RUNSPEED;
+			this.direction = true;
+		}
 			
 		//State update
 		
-		//Position update
+		// falling state
+		if (this.speedY > 0) {
+			this.state = Player.STATE_FALLING;
+		}
+		
+		// running state
+		if (this.speedX != 0 && this.speedY == 0 && this.state != Player.STATE_RUNNING) {
+			this.state = Player.STATE_RUNNING;
+		}
+		
+		if (this.speedX == 0 && this.speedY == 0 && this.state != Player.STATE_STANDING) {
+			this.state = Player.STATE_STANDING;
+		}
+		
+		
+		// then we update the position
+		this.posY += this.speedY;
+		this.posX += this.speedX;
 		
 		//Direction update
 		

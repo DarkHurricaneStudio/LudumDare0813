@@ -6,6 +6,7 @@ public abstract class Entity {
 	//Fields
 		protected double posX,posY,speedX;
 		protected double speedY;
+		
 
 	//Constructor
 		public Entity(double posX,double posY){
