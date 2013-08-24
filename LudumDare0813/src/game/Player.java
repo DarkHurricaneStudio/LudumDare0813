@@ -8,16 +8,21 @@ public class Player extends LivingEntity {
 
 	private int state,jumpForce;
 	private boolean leftKey,rightKey,jumpKey;
+	
 	protected final static int STATE_STANDING=0;
 	protected final static int STATE_RUNNING=1;
 	protected final static int STATE_JUMPING=2;
 	protected final static int STATE_FALLING=3;
 	
+	private Updater updater;
+	
 	private AnimatedSprite standingLeft,standingRight,jumpingLeft,jumpingRight,fallingLeft,fallingRight;
 	
-	public Player(double posX,double posY, int jumpForce,AnimatedSprite standingLeft,AnimatedSprite standingRight,AnimatedSprite runningLeft,AnimatedSprite runningRight,AnimatedSprite jumpingLeft,AnimatedSprite jumpingRight,AnimatedSprite fallingLeft,AnimatedSprite fallingRight) {
+	public Player(Updater u) {
 		
-		super(posX,posY,runningLeft,runningRight);
+		super(0,0,null,null);
+		this.updater = u;
+		
 		
 		this.jumpForce = jumpForce;
 		
