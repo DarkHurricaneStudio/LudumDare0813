@@ -21,6 +21,7 @@ public class GamePanel extends CardPanel {
 			
 	//Methods
 		public void paintComponent(Graphics g){
+			this.requestFocus();
 			long initTime = System.nanoTime();		
 			
 			this.updater.update();
