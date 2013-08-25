@@ -40,7 +40,6 @@ public class ZipReader {
 
 			//loading elements.txt
 			String text = ZipReader.loadText(path,"elements.txt");
-			System.out.println(text);
             lvl.loadTextFile(text);
 			
 		

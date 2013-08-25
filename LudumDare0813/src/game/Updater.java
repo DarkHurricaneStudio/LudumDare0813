@@ -47,6 +47,7 @@ public class Updater {
 			if (this.player.distanceTo(this.level.getMobs()[i]) < MainPanel.GAME_WIDTH)
 				this.level.getMobs()[i].update(this);
 		}
+
 		
 		// we update position if the player is too far from the center
 		if (this.player.getPosX()+this.posX <= MainPanel.GAME_WIDTH/3)
@@ -74,6 +75,7 @@ public class Updater {
 		// image background
 		g.drawImage(this.level.getBackground(),(int)this.posX,(int)this.posY,null);
 		
+		// mobs
 		g.setColor(Color.yellow);
 		for (int i=0; i<this.level.getMobs().length;i++) {
 			g.fillRect((int)(this.level.getMobs()[i].getPosX()+this.posX),(int)(this.level.getMobs()[i].getPosY()+this.posY),this.level.getMobs()[i].getWidth(),this.level.getMobs()[i].getHeight());
@@ -82,9 +84,12 @@ public class Updater {
 		g.setColor(Color.red);
 		g.fillRect((int)(this.player.getPosX()+this.posX),(int)(this.player.getPosY()+this.posY),this.player.getWidth(),this.player.getHeight());
 		
-		// test : display a text
-		g.setColor(Color.white);
-		g.drawString("This is a mother fucking text",15,15);
+		// we display the timeBonus
+		g.setColor(Color.blue);
+		for (int i=0; i<this.level.getTimeBonus().length;i++) {
+			System.out.println(level.getTimeBonus()[i].getPosY());
+			g.fillRect((int)(this.level.getTimeBonus()[i].getPosX()+this.posX),(int)(this.level.getTimeBonus()[i].getPosY()+this.posY),this.level.getTimeBonus()[i].getWidth(),this.level.getTimeBonus()[i].getHeight());
+		}
 		
 		return res;
 	}

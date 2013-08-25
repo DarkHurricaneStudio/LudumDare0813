@@ -100,4 +100,11 @@ public class Level {
 		
 		return this.mobs;
 	}
+	
+	public TimeBonus[] getTimeBonus() {
+		if (this.timeBonus == null)
+			this.timeBonus = new TimeBonus[0];
+		
+		return this.timeBonus;
+	}
 }
