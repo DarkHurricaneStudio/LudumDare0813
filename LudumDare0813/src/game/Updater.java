@@ -87,7 +87,6 @@ public class Updater {
 		// we display the timeBonus
 		g.setColor(Color.blue);
 		for (int i=0; i<this.level.getTimeBonus().length;i++) {
-			System.out.println(level.getTimeBonus()[i].getPosY());
 			g.fillRect((int)(this.level.getTimeBonus()[i].getPosX()+this.posX),(int)(this.level.getTimeBonus()[i].getPosY()+this.posY),this.level.getTimeBonus()[i].getWidth(),this.level.getTimeBonus()[i].getHeight());
 		}
 		
