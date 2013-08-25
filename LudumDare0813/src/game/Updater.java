@@ -65,6 +65,7 @@ public class Updater {
 		
 		BufferedImage res = new BufferedImage(MainPanel.GAME_WIDTH,MainPanel.GAME_HEIGHT,BufferedImage.TYPE_INT_ARGB);
 		Graphics g = res.getGraphics();
+		g.setFont(MainPanel.font);
 		
 		// black background for in case of
 		g.setColor(Color.black);
@@ -80,6 +81,10 @@ public class Updater {
 		
 		g.setColor(Color.red);
 		g.fillRect((int)(this.player.getPosX()+this.posX),(int)(this.player.getPosY()+this.posY),this.player.getWidth(),this.player.getHeight());
+		
+		// test : display a text
+		g.setColor(Color.white);
+		g.drawString("This is a mother fucking text",15,15);
 		
 		return res;
 	}

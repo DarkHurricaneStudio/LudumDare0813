@@ -39,7 +39,7 @@ public class MainPanel extends JPanel {
 		/**
 		 * 
 		 */
-		private Font font;
+		public static Font font;
 		
 	// Constructors
 		/**
@@ -57,13 +57,13 @@ public class MainPanel extends JPanel {
 			// we load the custom font
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			try {
-				ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("others/joystix.ttf")));
+				Font joystix = Font.createFont(Font.TRUETYPE_FONT, new File("others/joystix.ttf"));
+				MainPanel.font = joystix.deriveFont(12f);
+				ge.registerFont(MainPanel.font);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			this.font = new Font("Joystix",Font.TRUETYPE_FONT,9);
-
 			this.panels = new ArrayList<CardPanel>();
 			this.panels.add(new GamePanel(this,u));
 	
@@ -71,7 +71,7 @@ public class MainPanel extends JPanel {
 				this.panels.get(i);
 				this.add(this.panels.get(i), this.panels.get(i).getID());
 				// we had this font to the panel
-				this.panels.get(i).setFont(this.font);
+				this.panels.get(i).setFont(MainPanel.font);
 			}
 	
 			// Premier layout à afficher

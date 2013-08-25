@@ -2,6 +2,7 @@ package gui;
 
 import game.Updater;
 
+
 import java.awt.Graphics;
 
 public class GamePanel extends CardPanel {
@@ -26,7 +27,7 @@ public class GamePanel extends CardPanel {
 			
 			this.updater.update();
 			g.drawImage(this.updater.render(),0,0,null);
-			
+
 			while (System.nanoTime() - initTime < 1000000000 / 60) {			}
 			this.repaint();
 		}
