@@ -3,15 +3,11 @@ package levels;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
-import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
 
@@ -81,7 +77,6 @@ public class ZipReader {
         	
         	BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
         	
-        	int i = 0;
         	String line = null;
         	while ((line = br.readLine()) != null)  {
         		fileContent += line+"/n";

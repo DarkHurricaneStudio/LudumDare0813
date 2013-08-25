@@ -5,7 +5,6 @@ import game.TimeBonus;
 import game.Updater;
 
 import java.awt.image.BufferedImage;
-import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 public class Level {
@@ -14,7 +13,7 @@ public class Level {
 	private BufferedImage background;
 	private BufferedImage foreground;
 	private Monster[] mobs;
-	private TimeBonus[] timeBonus;
+	private Vector<TimeBonus> timeBonus;
 	private double spawnX;
 	private double spawnY;
 	
@@ -23,6 +22,7 @@ public class Level {
 	
 	public Level(Updater u, String path) {
 		this.updater = u;
+		this.timeBonus = new Vector<TimeBonus>();
 		ZipReader.read(path, this);
 		
 
@@ -35,7 +35,6 @@ public class Level {
 		String[] lines;
 		String[] stringBuffer;
 		Vector<Monster> bufferMobs = new Vector<Monster>();
-		Vector<TimeBonus> bufferTimer = new Vector<TimeBonus>();
 		
 		
 		lines = data.split("/n");
@@ -51,7 +50,7 @@ public class Level {
 				bufferMobs.add(new Monster(this.updater, Double.parseDouble(stringBuffer[1]), Double.parseDouble(stringBuffer[2])));
 				break;
 			case "TimeBonus":
-				bufferTimer.add(new TimeBonus(Double.parseDouble(stringBuffer[1]), Double.parseDouble(stringBuffer[2])));
+				this.timeBonus.add(new TimeBonus(Double.parseDouble(stringBuffer[1]), Double.parseDouble(stringBuffer[2])));
 				break;
 			}
 		}
@@ -60,10 +59,6 @@ public class Level {
 		this.mobs = new Monster[bufferMobs.size()];
 		for (int i = 0; i < bufferMobs.size(); i++) {
 			this.mobs[i] = bufferMobs.get(i);
-		}
-		this.timeBonus = new TimeBonus[bufferTimer.size()];
-		for (int i = 0; i < bufferTimer.size(); i++) {
-			this.timeBonus[i] = bufferTimer.get(i);
 		}
 		
 		
@@ -101,10 +96,7 @@ public class Level {
 		return this.mobs;
 	}
 	
-	public TimeBonus[] getTimeBonus() {
-		if (this.timeBonus == null)
-			this.timeBonus = new TimeBonus[0];
-		
+	public Vector<TimeBonus> getTimeBonus() {
 		return this.timeBonus;
 	}
 }

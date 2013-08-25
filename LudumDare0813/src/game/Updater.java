@@ -15,7 +15,7 @@ public class Updater {
 	
 	private Player player;
 	
-	private double timer; // the amount of time acquired
+	private int timer; // the amount of time acquired
 	
 	private double posX; // position for the scrolling
 	private double posY; // position for scrolling
@@ -31,6 +31,7 @@ public class Updater {
 		this.posX = this.player.getPosX()-MainPanel.GAME_WIDTH/2.0;
 		this.posY = this.player.getPosY()-MainPanel.GAME_HEIGHT/2.0;
 		this.level = new Level(this,"others/level.zip");
+		this.timer = 10000;
 	}
 	
 	
@@ -39,6 +40,8 @@ public class Updater {
 	public void update() {
 		// update of the player. No, why so serious ?
 		this.player.update(this);
+		// test
+		this.updateTime();
 		
 		// update of the monsters
 		// But, with a lot of monster, there will be too much operations ? oO
@@ -86,15 +89,27 @@ public class Updater {
 		
 		// we display the timeBonus
 		g.setColor(Color.blue);
-		for (int i=0; i<this.level.getTimeBonus().length;i++) {
-			g.fillRect((int)(this.level.getTimeBonus()[i].getPosX()+this.posX),(int)(this.level.getTimeBonus()[i].getPosY()+this.posY),this.level.getTimeBonus()[i].getWidth(),this.level.getTimeBonus()[i].getHeight());
+		for (int i=0; i<this.level.getTimeBonus().size();i++) {
+				g.fillRect((int)(this.level.getTimeBonus().get(i).getPosX()+this.posX),(int)(this.level.getTimeBonus().get(i).getPosY()+this.posY),this.level.getTimeBonus().get(i).getWidth(),this.level.getTimeBonus().get(i).getHeight());
 		}
 		
+		// timer display;
+		g.drawString(String.valueOf((double) this.timer/1000), 10, 10);
+		
 		return res;
+	}
+	
+	public void addTime() {
+		this.timer += TimeBonus.BONUS_VALUE;
+	}
+	
+	public void updateTime() {
+		this.timer -= 1000/60.0;
 	}
 	
 	public Level getLevel() {
 		return this.level;
 	}
+	
 
 }

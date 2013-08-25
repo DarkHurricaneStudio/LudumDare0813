@@ -113,8 +113,50 @@ public class Player extends LivingEntity {
 			this.speedY = 0;
 			this.state = Player.STATE_STANDING;
 		}
-		//Sprite display
 		
+		// we check TimeBonus collision
+		this.testTimeBonusCollison();
+		
+	}
+	
+	public void testTimeBonusCollison() {
+		// we check if the player is hitting a TimeBonus
+		// If it's true, we delete it, and add time to the timer
+    	// we test all corners of the rectangle representing the player with all corners of the obstacle
+    	// we test first the corner with the most risk of hitting an obstacle
+    	for (int i = 0; i < this.updater.getLevel().getTimeBonus().size();i++) {
+    	// right corners
+    	if (this.posX+this.width >= this.updater.getLevel().getTimeBonus().get(i).getPosX() && this.posX+this.width <= this.updater.getLevel().getTimeBonus().get(i).getPosX()+this.updater.getLevel().getTimeBonus().get(i).getWidth()) {
+    		// top-right corner
+    		if (this.posY >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
+    			this.updater.getLevel().getTimeBonus().removeElementAt(i);
+    			this.updater.addTime();
+    			break;
+    		}
+    		// bottom-right corner
+    		if (this.posY+this.height >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY+this.height <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
+    			this.updater.getLevel().getTimeBonus().removeElementAt(i);
+    			this.updater.addTime();
+    			break;
+    		}
+    	}
+    	
+    	// left corners
+    	if (this.posX >= this.updater.getLevel().getTimeBonus().get(i).getPosX() && this.posX <= this.updater.getLevel().getTimeBonus().get(i).getPosX()+this.updater.getLevel().getTimeBonus().get(i).getWidth()) {
+    		// top-left corner
+    		if (this.posY >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
+    			this.updater.getLevel().getTimeBonus().removeElementAt(i);
+    			this.updater.addTime();
+    			break;
+    		}
+    		// bottom-left corner
+    		if (this.posY+this.height >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY+this.height <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
+    			this.updater.getLevel().getTimeBonus().removeElementAt(i);
+    			this.updater.addTime();
+    			break;
+    		}
+    	}
+    	}
 	}
 
 
