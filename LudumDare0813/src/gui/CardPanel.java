@@ -6,7 +6,7 @@ public class CardPanel extends JPanel {
 	
 	//Fields
 		private String id;
-		protected MainPanel mainpanel;
+		protected MainPanel mainPanel;
 			
 	//Constructors
 		public CardPanel(String id,MainPanel mainPanel){

@@ -25,14 +25,12 @@ public class Sprite {
 		 */
 		private BufferedImage completeSprite;
 
-		private Graphics graphics;
-		
 	// Constructor
 		/**
 		 * 
 		 * @param path
 		 */
-		public Sprite(String path,Graphics graphics) {
+		public Sprite(String path) {
 			try {
 				this.completeSprite = ImageIO.read(new File(path));
 			} catch (IOException e) {
@@ -40,15 +38,9 @@ public class Sprite {
 				System.exit(1);
 			}
 			this.sprite = completeSprite;
-			
-			this.graphics = graphics;
 		}
 
 	//Methods
-		
-		public void display(int x,int y){
-			this.graphics.drawImage(this.sprite,x,y,null);
-		}
 		/**
 		 * 
 		 * @param g

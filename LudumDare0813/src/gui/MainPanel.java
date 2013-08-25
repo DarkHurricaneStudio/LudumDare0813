@@ -64,6 +64,7 @@ public class MainPanel extends JPanel {
 				e.printStackTrace();
 			}
 			this.panels = new ArrayList<CardPanel>();
+			this.panels.add(new MainMenuPanel(this));
 			this.panels.add(new GamePanel(this,u));
 	
 			for (int i = 0; i < this.panels.size(); i++) {
@@ -74,7 +75,7 @@ public class MainPanel extends JPanel {
 			}
 	
 			// Premier layout à afficher
-			this.layout.show(this, GamePanel.ID);
+			this.layout.show(this, MainMenuPanel.ID);
 			
 		}
 
