@@ -15,7 +15,7 @@ public class Updater {
 	
 	private Player player;
 	
-	private double timer; // the amount of time aquired
+	private double timer; // the amount of time acquired
 	
 	private double posX; // position for the scrolling
 	private double posY; // position for scrolling

@@ -36,6 +36,13 @@ public class ZipReader {
 			} catch (Exception e) {
 			System.out.println("file not found : cache");
 		}
+		try {
+			//loading level.txt
+			byte[] data = ZipReader.load(path,"level.txt");
+            lvl.LoadTextFile(data);
+			} catch (Exception e) {
+			System.out.println("file not found : level");
+		}
 		
 	}
 
