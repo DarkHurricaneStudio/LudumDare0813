@@ -11,7 +11,7 @@ public class MainMenuPanel extends CardPanel {
 
 	//Fields
 	private JButton playButton,exitButton;
-	private Sprite playSprite,exitSprite;
+	private Sprite playSprite,exitSprite,background;
 	
 	public final static String ID = "MAIN_MENU_PANEL";
 	
@@ -29,6 +29,8 @@ public class MainMenuPanel extends CardPanel {
 		
 		this.add(this.playButton);
 		this.add(this.exitButton);
+		
+		//this.background = new 
 	}
 	
 	public void paintComponent(Graphics g){
