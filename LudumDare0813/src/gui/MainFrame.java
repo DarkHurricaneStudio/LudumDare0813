@@ -20,7 +20,7 @@ public class MainFrame extends JFrame {
 			this.pack();
 			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-			this.setTitle("No name");
+			this.setTitle("Lifetime");
 		}
 	//Methods
 }

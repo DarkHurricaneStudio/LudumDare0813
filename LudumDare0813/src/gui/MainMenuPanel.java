@@ -93,14 +93,14 @@ public class MainMenuPanel extends CardPanel {
 		g.setFont(MainPanel.font.deriveFont(25f));
 		
 		g.setColor(new Color(240,240,240));
-		g.drawString("Lifetime", 300, 145);
+		g.drawString("Lifetime", 310, 145);
 		
 		this.playSprite.display(240, 300, g);
 		this.exitSprite.display(240, 420, g);
 		
-		g.setColor(Color.black);
-		g.drawString("Play",348,355);
-		g.drawString("Exit",348,475);
+		g.setColor(new Color(0,120,120));
+		g.drawString("Play",350,357);
+		g.drawString("Exit",350,477);
 		
 		while (System.nanoTime() - initTime < 1000000000 / 60) {			}
 		this.repaint();
