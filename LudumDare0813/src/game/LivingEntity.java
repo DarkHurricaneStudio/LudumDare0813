@@ -47,19 +47,7 @@ public abstract class LivingEntity extends Entity {
 
 		if (this.posX >= 0 && this.posX+this.width<= this.updater.getLevel().getCache().getWidth()
 				&& this.posY >= 0 && this.posY+this.height <= this.updater.getLevel().getCache().getHeight()) {
-
-			// bottom line
-			for (int i = (int) this.posX; i<=(int)(this.posX+this.width);i++) {
-				try {
-					int color = this.updater.getLevel().getCache().getRGB(i,(int) this.posY+this.height);
-					// is it red = a wall ?
-					if (color == (new Color(208,0,0).getRGB())) {
-						this.posY -= 1;
-						collision = true;
-					}
-				} finally {}
-			}
-
+			
 			// left line
 			for (int i = (int) this.posY; i <= (int) (this.posY+this.height);i++) {
 				try {
@@ -83,9 +71,22 @@ public abstract class LivingEntity extends Entity {
 					}
 				} finally {}
 			}
+			// bottom line
+			for (int i = (int) this.posX+1; i<(int)(this.posX+this.width);i++) {
+				try {
+					int color = this.updater.getLevel().getCache().getRGB(i,(int) this.posY+this.height);
+					// is it red = a wall ?
+					if (color == (new Color(208,0,0).getRGB())) {
+						this.posY -= 1;
+						collision = true;
+					}
+				} finally {}
+			}
+
+
 
 			// top line
-			for (int i = (int) this.posX; i<=(int)(this.posX+this.width);i++) {
+			for (int i = (int) this.posX+1; i<(int)(this.posX+this.width);i++) {
 				try {
 					int color = this.updater.getLevel().getCache().getRGB(i,(int) this.posY);
 					// is it red = a wall ?
