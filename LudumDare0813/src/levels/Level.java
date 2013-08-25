@@ -99,4 +99,12 @@ public class Level {
 	public Vector<TimeBonus> getTimeBonus() {
 		return this.timeBonus;
 	}
+	
+	public double getSpawnX() {
+		return this.spawnX;
+	}
+	
+	public double getSpawnY() {
+		return this.spawnY;
+	}
 }

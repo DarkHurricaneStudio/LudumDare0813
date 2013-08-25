@@ -116,47 +116,85 @@ public class Player extends LivingEntity {
 		
 		// we check TimeBonus collision
 		this.testTimeBonusCollison();
+		// we check monster collision too
+		this.testMonsterCollision();
 		
 	}
 	
 	public void testTimeBonusCollison() {
 		// we check if the player is hitting a TimeBonus
 		// If it's true, we delete it, and add time to the timer
-    	// we test all corners of the rectangle representing the player with all corners of the obstacle
-    	// we test first the corner with the most risk of hitting an obstacle
-    	for (int i = 0; i < this.updater.getLevel().getTimeBonus().size();i++) {
-    	// right corners
-    	if (this.posX+this.width >= this.updater.getLevel().getTimeBonus().get(i).getPosX() && this.posX+this.width <= this.updater.getLevel().getTimeBonus().get(i).getPosX()+this.updater.getLevel().getTimeBonus().get(i).getWidth()) {
-    		// top-right corner
-    		if (this.posY >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
-    			this.updater.getLevel().getTimeBonus().removeElementAt(i);
-    			this.updater.addTime();
-    			break;
-    		}
-    		// bottom-right corner
-    		if (this.posY+this.height >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY+this.height <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
-    			this.updater.getLevel().getTimeBonus().removeElementAt(i);
-    			this.updater.addTime();
-    			break;
-    		}
-    	}
-    	
-    	// left corners
-    	if (this.posX >= this.updater.getLevel().getTimeBonus().get(i).getPosX() && this.posX <= this.updater.getLevel().getTimeBonus().get(i).getPosX()+this.updater.getLevel().getTimeBonus().get(i).getWidth()) {
-    		// top-left corner
-    		if (this.posY >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
-    			this.updater.getLevel().getTimeBonus().removeElementAt(i);
-    			this.updater.addTime();
-    			break;
-    		}
-    		// bottom-left corner
-    		if (this.posY+this.height >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY+this.height <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
-    			this.updater.getLevel().getTimeBonus().removeElementAt(i);
-    			this.updater.addTime();
-    			break;
-    		}
-    	}
-    	}
+		// we test all corners of the rectangle representing the player with all corners of the obstacle
+		// we test first the corner with the most risk of hitting an obstacle
+		for (int i = 0; i < this.updater.getLevel().getTimeBonus().size();i++) {
+			// right corners
+			if (this.posX+this.width >= this.updater.getLevel().getTimeBonus().get(i).getPosX() && this.posX+this.width <= this.updater.getLevel().getTimeBonus().get(i).getPosX()+this.updater.getLevel().getTimeBonus().get(i).getWidth()) {
+				// top-right corner
+				if (this.posY >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
+					this.updater.getLevel().getTimeBonus().removeElementAt(i);
+					this.updater.addTime();
+					break;
+				}
+				// bottom-right corner
+				if (this.posY+this.height >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY+this.height <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
+					this.updater.getLevel().getTimeBonus().removeElementAt(i);
+					this.updater.addTime();
+					break;
+				}
+			}
+
+			// left corners
+			if (this.posX >= this.updater.getLevel().getTimeBonus().get(i).getPosX() && this.posX <= this.updater.getLevel().getTimeBonus().get(i).getPosX()+this.updater.getLevel().getTimeBonus().get(i).getWidth()) {
+				// top-left corner
+				if (this.posY >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
+					this.updater.getLevel().getTimeBonus().removeElementAt(i);
+					this.updater.addTime();
+					break;
+				}
+				// bottom-left corner
+				if (this.posY+this.height >= this.updater.getLevel().getTimeBonus().get(i).getPosY() && this.posY+this.height <= this.updater.getLevel().getTimeBonus().get(i).getPosY()+this.updater.getLevel().getTimeBonus().get(i).getHeight()) {
+					this.updater.getLevel().getTimeBonus().removeElementAt(i);
+					this.updater.addTime();
+					break;
+				}
+			}
+		}
+	}
+	
+	public void testMonsterCollision() {
+		for (int i = 0; i < this.updater.getLevel().getMobs().length;i++) {
+			// right corners
+			if (this.posX+this.width >= this.updater.getLevel().getMobs()[i].getPosX() && this.posX+this.width <= this.updater.getLevel().getMobs()[i].getPosX()+this.updater.getLevel().getMobs()[i].getWidth()) {
+				// top-right corner
+				if (this.posY >= this.updater.getLevel().getMobs()[i].getPosY() && this.posY <= this.updater.getLevel().getMobs()[i].getPosY()+this.updater.getLevel().getMobs()[i].getHeight()) {
+					this.posX = this.updater.getLevel().getSpawnX();
+					this.posY = this.updater.getLevel().getSpawnY();
+					break;
+				}
+				// bottom-right corner
+				if (this.posY+this.height >= this.updater.getLevel().getMobs()[i].getPosY() && this.posY+this.height <= this.updater.getLevel().getMobs()[i].getPosY()+this.updater.getLevel().getMobs()[i].getHeight()) {
+					this.posX = this.updater.getLevel().getSpawnX();
+					this.posY = this.updater.getLevel().getSpawnY();
+					break;
+				}
+			}
+
+			// left corners
+			if (this.posX >= this.updater.getLevel().getMobs()[i].getPosX() && this.posX <= this.updater.getLevel().getMobs()[i].getPosX()+this.updater.getLevel().getMobs()[i].getWidth()) {
+				// top-left corner
+				if (this.posY >= this.updater.getLevel().getMobs()[i].getPosY() && this.posY <= this.updater.getLevel().getMobs()[i].getPosY()+this.updater.getLevel().getMobs()[i].getHeight()) {
+					this.posX = this.updater.getLevel().getSpawnX();
+					this.posY = this.updater.getLevel().getSpawnY();
+					break;
+				}
+				// bottom-left corner
+				if (this.posY+this.height >= this.updater.getLevel().getMobs()[i].getPosY() && this.posY+this.height <= this.updater.getLevel().getMobs()[i].getPosY()+this.updater.getLevel().getMobs()[i].getHeight()) {
+					this.posX = this.updater.getLevel().getSpawnX();
+					this.posY = this.updater.getLevel().getSpawnY();
+					break;
+				}
+			}
+		}
 	}
 
 
