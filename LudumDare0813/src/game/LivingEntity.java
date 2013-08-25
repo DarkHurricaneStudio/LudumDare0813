@@ -19,8 +19,8 @@ public abstract class LivingEntity extends Entity {
 	// static bitches
 	public static double GRAVITY = 5.0;
 	public static double JUMPFORCE = 40.0;
-	public static double RUNSPEED = 15.0; // player speed
-	public static double WALKSPEED = 8.0;
+	public static double RUNSPEED = 8.0; // player speed
+	public static double WALKSPEED = 4.0;
 	
 	
 //Constructor
