@@ -30,7 +30,7 @@ public class Updater {
 		this.player = new Player(this);
 		this.posX = this.player.getPosX()-MainPanel.GAME_WIDTH/2.0;
 		this.posY = this.player.getPosY()-MainPanel.GAME_HEIGHT/2.0;
-		this.level = new Level(this,"C:/level.zip");
+		this.level = new Level(this,"others/level.zip");
 	}
 	
 	
