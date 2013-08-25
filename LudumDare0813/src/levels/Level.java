@@ -13,7 +13,6 @@ public class Level {
 	private BufferedImage cache;
 	private BufferedImage background;
 	private BufferedImage foreground;
-	private byte[] other; // other stuff to be load ? like a text file, or another image
 	private Monster[] mobs;
 	private TimeBonus[] timeBonus;
 	private double spawnX;
@@ -30,31 +29,26 @@ public class Level {
 	}
 	
 
-	public void LoadTextFile(byte[] data) {
+
+	public void loadTextFile(String data) {
 		
-		String text = null;
 		String[] lines;
 		String[] stringBuffer;
-		Vector<Monster> bufferMobs = null;
-		Vector<TimeBonus> bufferTimer = null;
+		Vector<Monster> bufferMobs = new Vector<Monster>();
+		Vector<TimeBonus> bufferTimer = new Vector<TimeBonus>();
 		
-		try {
-			text = new String(data, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		lines = text.split("/n");
+		
+		lines = data.split("/n");
 
 		for (int i = 0; i < lines.length;i++) {
-			stringBuffer = lines[0].split(":");
+			stringBuffer = lines[i].split(":");
 			switch (stringBuffer[0]) {
 			case "Spawn":
 				this.spawnX = Double.parseDouble(stringBuffer[1]);
 				this.spawnY = Double.parseDouble(stringBuffer[2]);
 				break;
 			case "Monster":
-				bufferMobs.add(new Monster(this.updater, Double.parseDouble(stringBuffer[1]), Double.parseDouble(stringBuffer[2]), null, null));
+				bufferMobs.add(new Monster(this.updater, Double.parseDouble(stringBuffer[1]), Double.parseDouble(stringBuffer[2])));
 				break;
 			case "TimeBonus":
 				bufferTimer.add(new TimeBonus(Double.parseDouble(stringBuffer[1]), Double.parseDouble(stringBuffer[2])));

@@ -14,6 +14,13 @@ public class Monster extends LivingEntity {
 		this.width = 50;
 		this.direction = false; // always go to the left !
 	}
+	
+	public Monster(Updater u, double posX, double posY) {
+		super(u, posX, posY, null, null);
+		this.height = 50;
+		this.width = 50;
+		this.direction = false; // always go to the left !
+	}
 
 	@Override
 	public void update(Updater u) {

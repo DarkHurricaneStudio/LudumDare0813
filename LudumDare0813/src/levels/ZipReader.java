@@ -1,11 +1,17 @@
 package levels;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
+import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
 
@@ -22,33 +28,36 @@ public class ZipReader {
 			} catch (Exception e) {
 			System.out.println("file not found : background");
 		}
+
 		try {
-			//loading background.png
+			//loading foreground.png
 			byte[] data = ZipReader.load(path,"foreground.png");
             lvl.setForeground(ImageIO.read(new ByteArrayInputStream(data)));
 			} catch (Exception e) {
 			System.out.println("file not found : foreground");
 		}
+		
+
+			//loading elements.txt
+			String text = ZipReader.loadText(path,"elements.txt");
+			System.out.println(text);
+            lvl.loadTextFile(text);
+			
+		
 		try {
-			//loading background.png
+			//loading cache.png
 			byte[] data = ZipReader.load(path,"cache.png");
             lvl.setCache(ImageIO.read(new ByteArrayInputStream(data)));
 			} catch (Exception e) {
 			System.out.println("file not found : cache");
 		}
-		try {
-			//loading level.txt
-			byte[] data = ZipReader.load(path,"level.txt");
-            lvl.LoadTextFile(data);
-			} catch (Exception e) {
-			System.out.println("file not found : level");
-		}
 		
 	}
 
 	public static byte[] load(String path, String filename) throws IOException {
+		
 			ByteArrayOutputStream out = new ByteArrayOutputStream();  
-			ZipFile zf = new ZipFile(path);  
+			ZipFile zf = new ZipFile(path);
 			ZipEntry entry = zf.getEntry(filename);
         	InputStream in = zf.getInputStream(entry);  
         	byte[] buffer = new byte[BUFFER];  
@@ -59,5 +68,34 @@ public class ZipReader {
         	out.close();  
         	byte[] bytes = out.toByteArray();
         	return bytes;
+	}
+	
+	public static String loadText(String path, String filename) {
+
+		String fileContent = "";
+		try {
+			ByteArrayOutputStream out = new ByteArrayOutputStream();  
+			ZipFile zf = new ZipFile(path);
+			ZipEntry entry = zf.getEntry(filename);
+			
+        	InputStream in = zf.getInputStream(entry);
+        	
+        	BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+        	
+        	int i = 0;
+        	String line = null;
+        	while ((line = br.readLine()) != null)  {
+        		fileContent += line+"/n";
+        	}
+        	
+        	in.close();  
+        	zf.close();  
+        	out.close();  
+
+        	
+		} catch (Exception e) {
+			System.out.println("Can not read text file.");
+		}
+		return fileContent;
 	}
 }
