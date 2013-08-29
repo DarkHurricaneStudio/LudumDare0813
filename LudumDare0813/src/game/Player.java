@@ -9,7 +9,6 @@ import gui.MainPanel;
 
 public class Player extends LivingEntity {
 
-	private int state;
 	private boolean leftKey,rightKey,jumpKey;
 	
 	protected final static int STATE_STANDING=0;
@@ -105,14 +104,12 @@ public class Player extends LivingEntity {
 		}
 		
 		
-		// then we update the position
-		this.posY += this.speedY;
-		this.posX += this.speedX;
+
 		// we check the level collision
-		if (levelCollision()) {
-			this.speedY = 0;
-			this.state = Player.STATE_STANDING;
-		}
+		horizontalLevelCollision();
+		verticalLevelCollision();
+			
+
 		
 		// we check TimeBonus collision
 		this.testTimeBonusCollison();
